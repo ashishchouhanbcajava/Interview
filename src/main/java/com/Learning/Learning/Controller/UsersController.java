@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Learning.Learning.Configurations.CustomBeanConfiguration;
 import com.Learning.Learning.Configurations.JwtConfig;
+import com.Learning.Learning.Configurations.RefreshTokenConfig;
+import com.Learning.Learning.Service.RefreshTokenDetailsService;
 import com.Learning.Learning.Service.UsersService;
 import com.Learning.Learning.beans.Users;
 
@@ -30,6 +32,12 @@ public class UsersController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private RefreshTokenDetailsService refreshTokenDetailsService;
+
+	@Autowired
+	private RefreshTokenConfig refreshTokenConfig;
 
 	public UsersController(UsersService usersService) {
 		this.usersService = usersService;
@@ -52,6 +60,8 @@ public class UsersController {
 			Users user = (Users) authenticate.getPrincipal();
 
 			String token = JwtConfig.generateToken(user);
+			String refreshToken = refreshTokenConfig.generateRefreshToken(user.getUsername());
+			
 
 			user.setToken(token);
 			return ResponseEntity.ok(user);

@@ -23,6 +23,7 @@ public class JwtConfig {
 
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("role", users.getRole());
+		claims.put("userId", users.getId());
 		return Jwts.builder().subject(users.getUsername()).claims(claims).issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + EXPIRATION))
 				.signWith(Keys.hmacShaKeyFor(secret.getBytes())).compact();

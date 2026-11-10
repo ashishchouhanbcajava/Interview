@@ -1,5 +1,7 @@
 package com.Learning.Learning.Configurations;
 
+import java.security.MessageDigest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,4 +26,6 @@ public class CustomBeanConfiguration {
 		provider.setPasswordEncoder(passwordEncoder());
 		return new ProviderManager(provider);
 	}
+	
+	
 }
